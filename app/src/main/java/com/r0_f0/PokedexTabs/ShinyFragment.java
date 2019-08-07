@@ -1,7 +1,5 @@
 package com.r0_f0.PokedexTabs;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,13 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.r0_f0.PokedexTabs.models.Pokemon;
 import com.r0_f0.PokedexTabs.models.Pokemon_respuesta;
 import com.r0_f0.PokedexTabs.pokeapi.PokeapiService;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,13 +31,11 @@ public class ShinyFragment extends Fragment {
         if (getArguments() != null) {
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_shiny, container, false);
         recyclerViewShiny= root.findViewById(R.id.recyclerViewShiny);
-
         listaPokemonAdapterShiny = new ListaPokemonAdapterShiny(getActivity());
         recyclerViewShiny.setHasFixedSize(true);
         final GridLayoutManager layoutManagerShiny = new GridLayoutManager(getActivity(), 3);
@@ -55,7 +48,6 @@ public class ShinyFragment extends Fragment {
                     int visibleItemCount = layoutManagerShiny.getChildCount();
                     int totalItemCount = layoutManagerShiny.getItemCount();
                     int pastVisibleItems = layoutManagerShiny.findFirstVisibleItemPosition();
-
                     if (aptoParaCargar) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                             Log.i(TAG, " Llegamos al final.");
@@ -72,7 +64,6 @@ public class ShinyFragment extends Fragment {
                 .baseUrl("http://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         aptoParaCargar = true;
         offset = 0;
         obtenerDatosShiny(offset);
@@ -87,7 +78,6 @@ public class ShinyFragment extends Fragment {
             public void onResponse(Call<Pokemon_respuesta> call, Response<Pokemon_respuesta> response) {
                 aptoParaCargar = true;
                 if (response.isSuccessful()) {
-
                     Pokemon_respuesta pokemonRespuesta = response.body();
                     ArrayList<Pokemon> listaPokemon = pokemonRespuesta.getResults();
 
@@ -97,7 +87,6 @@ public class ShinyFragment extends Fragment {
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
-
             @Override
             public void onFailure(Call<Pokemon_respuesta> call, Throwable t) {
                 aptoParaCargar = true;

@@ -1,39 +1,25 @@
 package com.r0_f0.PokedexTabs;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.r0_f0.PokedexTabs.models.Pokemon;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapter.ViewHolder> {
     private ArrayList<Pokemon> dataset;
     private Context context;
     private Handler handler = new Handler();
+    private View view;
     public ListaPokemonAdapter(Context context) {
         this.context = context;
         dataset = new ArrayList<>();
@@ -41,7 +27,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pokemon, parent, false);
+         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pokemon, parent, false);
         return new ViewHolder(view);
     }
 
@@ -57,11 +43,9 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
         holder.fotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handler.post(new Runnable() {
-                    public void run() {
-                        Toast.makeText(context,"https://pokeapi.co/api/v2/pokemon/"+dataset.get(position).getNumber(),Toast.LENGTH_LONG).show();
-                    }
-                });
+                Intent i=new Intent(context,DetallePokemon.class);
+                i.putExtra("id",dataset.get(position).getNumber());
+                context.startActivity(i);
             }
         });
     }
@@ -88,4 +72,5 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
             nombreTextView = itemView.findViewById(R.id.nombreTextView);
         }
     }
+
 }

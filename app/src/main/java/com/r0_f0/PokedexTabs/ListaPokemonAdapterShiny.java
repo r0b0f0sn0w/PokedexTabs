@@ -2,6 +2,7 @@ package com.r0_f0.PokedexTabs;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class ListaPokemonAdapterShiny extends RecyclerView.Adapter<ListaPokemonA
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Pokemon p = dataset.get(position);
         holder.nombreTextView.setText(p.getName());
         Glide.with(context)
@@ -38,6 +39,14 @@ public class ListaPokemonAdapterShiny extends RecyclerView.Adapter<ListaPokemonA
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.fotoImageView);
+        holder.fotoImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(context,DetallePokemon.class);
+                i.putExtra("id",dataset.get(position).getNumber());
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
