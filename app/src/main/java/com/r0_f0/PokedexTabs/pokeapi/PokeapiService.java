@@ -16,5 +16,4 @@ public interface PokeapiService {
     Call<Pokemon_respuesta> obtenerListaPokemonShiny(@Query("limit") int limit, @Query("offset") int offset);
     @GET("pokemon/{id}")
     Call<Pokemon_tipos> obtenerHabilidadesPokemon(@Path ("id") String id);
-
 }
