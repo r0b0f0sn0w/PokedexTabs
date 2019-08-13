@@ -45,6 +45,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
             public void onClick(View view) {
                 Intent i=new Intent(context,DetallePokemon.class);
                 i.putExtra("id",dataset.get(position).getNumber());
+                i.putExtra("version","normal");
                 context.startActivity(i);
             }
         });

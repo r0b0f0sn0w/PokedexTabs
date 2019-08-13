@@ -44,6 +44,7 @@ public class ListaPokemonAdapterShiny extends RecyclerView.Adapter<ListaPokemonA
             public void onClick(View view) {
                 Intent i=new Intent(context,DetallePokemon.class);
                 i.putExtra("id",dataset.get(position).getNumber());
+                i.putExtra("version","shiny");
                 context.startActivity(i);
             }
         });
